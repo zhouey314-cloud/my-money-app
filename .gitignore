@@ -1,0 +1,19 @@
+# Personal ledgers, byte-for-byte backups and atomic-write files
+my_expenses.csv*
+*.csv
+.*.lock
+.*.tmp
+*.db
+*.db-*
+*.sqlite*
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+test-output/
+test-results/
+coverage/
+.DS_Store
