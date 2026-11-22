@@ -1,15 +1,32 @@
-# My Money App — legacy local experiment
+# My Money App | 本地记账实验
 
 This is a personal text-to-expense prototype, **not a financial adviser or a
 production accounting system**. Phone dictation is supplied by the keyboard;
 this app does not transcribe audio. A model may misread an amount or category:
 schema validation does not verify that its interpretation is correct.
 
-## Offline checks (Python 3.11+; no packages or API key)
+**Start here:** Run the synthetic CSV check below. It demonstrates the
+local validation path without a model, dependencies, API key, or personal data.
+The optional Streamlit UI is separate and is not an offline demo of model extraction.
+
+## Safe offline demo (Python 3.11+; no packages or API key)
+
+Run from the repository root in a macOS/Linux shell:
+
+```sh
+sample_dir="$(mktemp -d)"
+printf '%s\n' 'item,amount,category,currency,date' \
+  'SYNTHETIC tea,12.30,餐饮,CNY,2026-01-02 03:04' > "$sample_dir/demo.csv"
+python3 ledger.py check --path "$sample_dir/demo.csv"
+```
+
+Expected: `{"status": "VALID", "rows": 1}`. The check prints the result and
+row count, not individual expenses. No file in the repository is created or changed.
+
+## Offline regression checks
 
 ```sh
 python3 -m unittest discover -s tests -v
-python3 ledger.py check --path /your/local/my_expenses.csv
 ```
 
 Tests only create clearly synthetic records in temporary directories. They
